@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 @import "tailwindcss";
@@ -7,20 +6,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ==========================================
-   LUNARIA — PINK BLUE PURPLE UNIVERSE
-   ========================================== */
-
 @theme inline {
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Manrope", sans-serif;
-
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -36,95 +24,46 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--primary);
-  --color-g1: var(--g1);
-  --color-g2: var(--g2);
-  --color-g3: var(--g3);
-  --color-g4: var(--g4);
-  --color-glass: var(--glass);
 }
-
-/* ==========================================
-   COLOR SYSTEM
-   ========================================== */
 
 :root {
   color-scheme: light;
-
-  --g1: #f9d5eb;
-  --g2: #e7cafa;
-  --g3: #cfcfff;
-  --g4: #cce5ff;
-
-  --background: #f5f4ff;
-  --foreground: #403653;
-  --card: #ffffff;
+  --background: #f8f4fc;
+  --foreground: #493b5c;
+  --card: #fffaff;
   --popover: #fffaff;
-
-  --primary: #8050a9;
+  --primary: #9565b8;
   --primary-foreground: #ffffff;
-
-  --secondary: #eee5fa;
-  --muted: #f4effb;
+  --secondary: #eee4f8;
+  --muted: #f3edf8;
   --muted-foreground: #898096;
-
   --accent: #f8dff1;
-  --accent-c: #a56cc9;
   --destructive: #dc718d;
-
-  --border: #e8ddef;
+  --border: #eaddef;
   --input: #e7dced;
-  --glass: rgb(255 255 255 / 65%);
-
   --radius: 1.35rem;
-  --glass-alpha: 65%;
-  --density: 1;
 
-  /* Main gradient */
+  --pink: #f8d9eb;
+  --lavender: #e5d8fa;
+  --blue: #d5e4ff;
+  --mint: #dff3e8;
+  --peach: #ffeddc;
 
-  --gradient-universe:
-    linear-gradient(
-      125deg,
-      var(--g1) 0%,
-      var(--g2) 35%,
-      var(--g3) 68%,
-      var(--g4) 100%
-    );
-
-  /* Background atmosphere */
+  --gradient-universe: linear-gradient(
+    120deg,
+    #f7cfe8,
+    #dfcafa 45%,
+    #cbdcff 100%
+  );
 
   --gradient-soft:
-    radial-gradient(
-      ellipse at 0% 0%,
-      rgb(255 213 239 / 75%),
-      transparent 45%
-    ),
-    radial-gradient(
-      ellipse at 100% 10%,
-      rgb(209 198 255 / 65%),
-      transparent 45%
-    ),
-    radial-gradient(
-      ellipse at 50% 100%,
-      rgb(197 225 255 / 70%),
-      transparent 45%
-    ),
-    #f5f4ff;
+    radial-gradient(ellipse at 5% 5%, #fce2f1 0%, transparent 40%),
+    radial-gradient(ellipse at 95% 10%, #e5dcff 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 100%, #dcecff 0%, transparent 45%),
+    #f8f4fc;
 
-  --shadow-float:
-    0 12px 35px rgb(113 83 151 / 9%),
-    0 3px 12px rgb(113 83 151 / 5%);
-
-  --shadow-glow:
-    0 0 30px rgb(190 151 239 / 25%);
-
-  --shadow-card:
-    0 8px 25px rgb(116 88 156 / 8%),
-    0 2px 6px rgb(116 88 156 / 4%);
+  --shadow-float: 0 12px 35px rgb(113 83 151 / 9%);
 }
-
-/* ==========================================
-   GLOBAL
-   ========================================== */
 
 @layer base {
   * {
@@ -134,34 +73,24 @@
 
   html {
     scroll-behavior: smooth;
-    -webkit-tap-highlight-color: transparent;
   }
 
   body {
-    min-height: 100dvh;
-    overflow-x: hidden;
+    min-height: 100vh;
     background: var(--gradient-soft) fixed;
-    background-size: cover;
     color: var(--foreground);
     font-family: var(--font-sans);
-    font-size: 14px;
     -webkit-font-smoothing: antialiased;
   }
 
-  h1,
-  h2,
-  h3,
-  h4 {
+  h1, h2, h3, h4 {
     font-family: var(--font-display);
     font-weight: 500;
     letter-spacing: -0.035em;
     color: #493b5c;
   }
 
-  button,
-  input,
-  textarea,
-  select {
+  button, input, textarea, select {
     font: inherit;
   }
 
@@ -173,112 +102,46 @@
     background: #e9cafa;
     color: #493b5c;
   }
-
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-      180deg,
-      #e9bce0,
-      #b9b2ed,
-      #a9cafa
-    );
-    border-radius: 20px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
 }
-
-/* ==========================================
-   MAIN BACKGROUND
-   ========================================== */
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-
-  background-image:
-    radial-gradient(
-      circle,
-      rgb(255 255 255 / 90%) 0 1px,
-      transparent 2px
-    ),
-    radial-gradient(
-      circle,
-      rgb(255 255 255 / 70%) 0 1px,
-      transparent 2px
-    );
-
-  background-size: 90px 90px, 140px 140px;
-  background-position: 0 0, 40px 50px;
-  opacity: .6;
-}
-
-/* ==========================================
-   GLASS CARDS
-   ========================================== */
 
 @utility glass {
-  background: rgb(255 255 255 / var(--glass-alpha));
+  background: rgb(255 255 255 / 68%);
   backdrop-filter: blur(24px) saturate(145%);
   -webkit-backdrop-filter: blur(24px) saturate(145%);
-
-  border: 1px solid rgb(255 255 255 / 85%);
+  border: 1px solid rgb(255 255 255 / 90%);
   border-radius: 1.6rem;
-
   box-shadow: var(--shadow-float);
 }
 
 @utility glass-pink {
-  background: linear-gradient(
-    135deg,
-    rgb(255 230 246 / 80%),
-    rgb(245 224 255 / 75%)
-  );
-
-  border: 1px solid rgb(255 255 255 / 80%);
+  background: linear-gradient(135deg, #fff0f7, #f4e5ff);
+  border: 1px solid white;
   backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-card);
+  border-radius: 1.6rem;
+  box-shadow: var(--shadow-float);
 }
 
 @utility glass-blue {
-  background: linear-gradient(
-    135deg,
-    rgb(226 236 255 / 85%),
-    rgb(221 229 255 / 75%)
-  );
-
-  border: 1px solid rgb(255 255 255 / 85%);
-  backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-card);
+  background: linear-gradient(135deg, #e9f2ff, #e5e7ff);
+  border: 1px solid white;
+  border-radius: 1.6rem;
+  box-shadow: var(--shadow-float);
 }
 
 @utility glass-purple {
-  background: linear-gradient(
-    135deg,
-    rgb(239 225 255 / 85%),
-    rgb(226 218 255 / 75%)
-  );
-
-  border: 1px solid rgb(255 255 255 / 85%);
-  backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-card);
+  background: linear-gradient(135deg, #f2e8ff, #e9e3ff);
+  border: 1px solid white;
+  border-radius: 1.6rem;
+  box-shadow: var(--shadow-float);
 }
 
-/* ==========================================
-   GRADIENT UTILITIES
-   ========================================== */
-
 @utility bg-universe {
-  background-image: var(--gradient-universe);
+  background-image: linear-gradient(
+    115deg,
+    #c16eaa,
+    #986bc7 50%,
+    #6d91df
+  );
 }
 
 @utility text-universe {
@@ -292,52 +155,17 @@ body::before {
   box-shadow: var(--shadow-float);
 }
 
-@utility shadow-glow {
-  box-shadow: var(--shadow-glow);
-}
-
-@utility pad {
-  padding: calc(1.25rem * var(--density));
-}
-
-/* ==========================================
-   CARDS AND INTERACTIONS
-   ========================================== */
-
 @utility lift {
-  transition:
-    transform .35s ease,
-    box-shadow .35s ease,
-    background .35s ease;
+  transition: transform .3s ease, box-shadow .3s ease;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow:
-      0 18px 40px rgb(117 88 159 / 14%),
-      var(--shadow-glow);
+    box-shadow: 0 18px 40px rgb(117 88 159 / 15%);
   }
 }
 
-.rounded-2xl,
-.rounded-3xl {
-  transition:
-    box-shadow .3s ease,
-    border-color .3s ease;
-}
-
-[class*="glass"] {
-  box-shadow: var(--shadow-float);
-}
-
-/* ==========================================
-   BUTTONS
-   ========================================== */
-
 button {
-  transition:
-    transform .2s ease,
-    opacity .2s ease,
-    box-shadow .25s ease;
+  transition: transform .2s ease, box-shadow .2s ease;
 }
 
 button:active {
@@ -345,184 +173,68 @@ button:active {
 }
 
 button:disabled {
-  cursor: not-allowed;
   opacity: .55;
+  cursor: not-allowed;
 }
-
-/* Primary gradient buttons */
-
-button.bg-universe,
-.bg-universe {
-  background-image: linear-gradient(
-    115deg,
-    #b75fa9 0%,
-    #9662c5 45%,
-    #668fe0 100%
-  );
-
-  color: white;
-  box-shadow: 0 5px 16px rgb(133 90 182 / 22%);
-}
-
-button.bg-universe:hover {
-  box-shadow: 0 8px 24px rgb(133 90 182 / 32%);
-  filter: brightness(1.04);
-}
-
-/* ==========================================
-   INPUTS
-   ========================================== */
 
 input:not([type="checkbox"]):not([type="radio"]),
 textarea,
 select {
-  border-radius: 18px;
+  border-radius: 16px;
   border: 1px solid #e8dced;
-  background: rgb(255 255 255 / 72%);
+  background: rgb(255 255 255 / 75%);
   color: #554667;
-
-  transition:
-    border-color .2s ease,
-    box-shadow .2s ease,
-    background .2s ease;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: #aaa0b4;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #c49ae6;
-  background: white;
+  border-color: #bd99df;
   box-shadow: 0 0 0 4px rgb(190 151 239 / 16%);
 }
 
-/* ==========================================
-   PAGE ANIMATIONS
-   ========================================== */
-
-@keyframes float-y {
-  0%, 100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
+@keyframes lunaria-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
 }
 
-@keyframes twinkle {
-  0%, 100% {
-    opacity: .35;
-    transform: scale(.85);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
+@keyframes lunaria-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes page-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pop {
-  from {
-    opacity: 0;
-    transform: scale(.9);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes gradient-flow {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
+@keyframes lunaria-twinkle {
+  0%, 100% { opacity: .4; }
+  50% { opacity: 1; }
 }
 
 @utility animate-float {
-  animation: float-y 6s ease-in-out infinite;
-}
-
-@utility animate-twinkle {
-  animation: twinkle 3s ease-in-out infinite;
+  animation: lunaria-float 6s ease-in-out infinite;
 }
 
 @utility animate-page {
-  animation: page-in .5s ease both;
+  animation: lunaria-enter .5s ease both;
 }
 
-@utility animate-pop {
-  animation: pop .4s ease both;
+@utility animate-twinkle {
+  animation: lunaria-twinkle 3s ease-in-out infinite;
 }
 
-/* ==========================================
-   NAVIGATION AND SIDEBAR
-   ========================================== */
-
-nav,
-aside {
+nav, aside {
   scrollbar-width: thin;
   scrollbar-color: #ddc8ed transparent;
 }
 
-nav button,
-aside button {
-  border-radius: 18px;
-}
-
 nav button:hover,
 aside button:hover {
-  background: linear-gradient(
-    100deg,
-    rgb(250 218 243 / 75%),
-    rgb(225 218 255 / 75%)
-  );
+  background: linear-gradient(100deg, #fce5f3, #eae2ff);
 }
 
-nav button:active,
-aside button:active {
-  transform: scale(.98);
+.rounded-2xl,
+.rounded-3xl {
+  transition: box-shadow .3s ease;
 }
-
-/* ==========================================
-   DECORATIVE ELEMENTS
-   ========================================== */
-
-.decoration,
-.star-decoration {
-  pointer-events: none;
-  user-select: none;
-}
-
-.glow {
-  filter: drop-shadow(0 0 12px rgb(195 157 239 / 55%));
-}
-
-/* ==========================================
-   MOBILE RESPONSIVENESS
-   ========================================== */
 
 @media (max-width: 640px) {
   body {
@@ -530,21 +242,7 @@ aside button:active {
   }
 
   .glass {
-    border-radius: 1.35rem;
-  }
-
-  h1 {
-    font-size: clamp(1.9rem, 8vw, 2.5rem);
-  }
-
-  button {
-    min-height: 38px;
-  }
-
-  input,
-  textarea,
-  select {
-    max-width: 100%;
+    border-radius: 1.3rem;
   }
 
   main {
@@ -552,44 +250,12 @@ aside button:active {
   }
 }
 
-/* ==========================================
-   TABLET AND DESKTOP
-   ========================================== */
-
-@media (min-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-
-  .glass {
-    border-radius: 1.7rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    font-size: 15px;
-  }
-}
-
-/* ==========================================
-   ACCESSIBILITY
-   ========================================== */
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-.reduce-motion *,
-.reduce-motion *::before,
-.reduce-motion *::after {
-  animation: none !important;
-  transition: none !important;
 }
