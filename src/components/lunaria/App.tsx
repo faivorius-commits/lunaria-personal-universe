@@ -24,22 +24,25 @@ type Page =
   | "Recipes" | "My Vault" | "Settings";
 
 const navigation = [
-  { name: "Home", icon: Home, group: "My Universe" },
-  { name: "Daily World", icon: CalendarCheck, group: "My Universe" },
-  { name: "Workspace", icon: Target, group: "My Universe" },
-  { name: "Calendar", icon: CalendarDays, group: "My Universe" },
-  { name: "Diary", icon: BookOpen, group: "Personal Space" },
-  { name: "Journey", icon: Compass, group: "Personal Space" },
-  { name: "Memories", icon: FolderHeart, group: "Personal Space" },
-  { name: "Collections", icon: Gem, group: "Personal Space" },
-  { name: "My Garden", icon: Sprout, group: "Personal Space" },
-  { name: "Recipes", icon: ChefHat, group: "Personal Space" },
-  { name: "My Vault", icon: Archive, group: "Personal Space" },
-  { name: "Knowledge Garden", icon: Lightbulb, group: "Discover" },
-  { name: "Explore", icon: Compass, group: "Discover" },
-  { name: "Randomizer", icon: Shuffle, group: "Discover" },
-  { name: "Arcade", icon: Gamepad2, group: "Discover" },
-  { name: "Settings", icon: Settings2, group: "System" }
+  { name: "Home", icon: Home, group: "YOUR UNIVERSE" },
+  { name: "Daily World", icon: CalendarCheck, group: "YOUR UNIVERSE" },
+  { name: "Workspace", icon: Target, group: "YOUR UNIVERSE" },
+  { name: "Calendar", icon: CalendarDays, group: "YOUR UNIVERSE" },
+
+  { name: "Arcade", icon: Gamepad2, group: "DISCOVER" },
+  { name: "Explore", icon: Compass, group: "DISCOVER" },
+  { name: "Randomizer", icon: Shuffle, group: "DISCOVER" },
+  { name: "Knowledge Garden", icon: Lightbulb, group: "DISCOVER" },
+
+  { name: "Diary", icon: BookOpen, group: "PERSONAL SPACE" },
+  { name: "Journey", icon: Compass, group: "PERSONAL SPACE" },
+  { name: "Memories", icon: FolderHeart, group: "PERSONAL SPACE" },
+  { name: "My Vault", icon: Archive, group: "PERSONAL SPACE" },
+  { name: "Collections", icon: Gem, group: "PERSONAL SPACE" },
+  { name: "My Garden", icon: Sprout, group: "PERSONAL SPACE" },
+  { name: "Recipes", icon: ChefHat, group: "PERSONAL SPACE" },
+
+  { name: "Settings", icon: Settings2, group: "SYSTEM" }
 ] as const;
 
 const pageInfo: Record<Page, { subtitle: string; icon: typeof Home }> = {
@@ -64,10 +67,19 @@ const pageInfo: Record<Page, { subtitle: string; icon: typeof Home }> = {
 const cx = (...v: Array<string | false | undefined>) => v.filter(Boolean).join(" ");
 
 function Brand() {
-  return <div className="flex items-center gap-3">
-    <div className="grid size-11 place-items-center rounded-2xl bg-universe text-white shadow-float"><Moon size={23} /></div>
-    <div><div className="font-display text-2xl font-semibold leading-none">Lunaria</div><div className="mt-1 text-[9px] uppercase tracking-[.28em] text-muted-foreground">Personal universe</div></div>
-  </div>;
+  return (
+    <div className="flex items-center gap-3">
+      <div className="grid size-11 place-items-center rounded-2xl bg-universe text-white shadow-float">
+        <Moon size={23} />
+      </div>
+      <div>
+        <div className="font-display text-2xl font-semibold leading-none">Lunaria</div>
+        <div className="mt-1 text-[9px] uppercase tracking-[.28em] text-muted-foreground">
+          Personal universe
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function Glass({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -79,43 +91,99 @@ function Eyebrow({ children }: { children: ReactNode }) {
 }
 
 function Button({ children, onClick, type = "button", variant = "primary", disabled = false }: {
-  children: ReactNode; onClick?: () => void; type?: "button" | "submit";
-  variant?: "primary" | "soft" | "plain"; disabled?: boolean;
+  children: ReactNode;
+  onClick?: () => void;
+  type?: "button" | "submit";
+  variant?: "primary" | "soft" | "plain";
+  disabled?: boolean;
 }) {
-  return <button type={type} disabled={disabled} onClick={onClick}
-    className={cx("inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[.98] disabled:opacity-50",
-      variant === "primary" && "bg-universe text-white shadow-float hover:opacity-90",
-      variant === "soft" && "border border-white/70 bg-white/65 hover:bg-white",
-      variant === "plain" && "text-muted-foreground hover:bg-white/60")}>{children}</button>;
+  return (
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      className={cx(
+        "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[.98] disabled:opacity-50",
+        variant === "primary" && "bg-universe text-white shadow-float hover:opacity-90",
+        variant === "soft" && "border border-white/70 bg-white/65 hover:bg-white",
+        variant === "plain" && "text-muted-foreground hover:bg-white/60"
+      )}
+    >
+      {children}
+    </button>
+  );
 }
 
 function Field({ label, value, onChange, placeholder, type = "text", required = false, multiline = false }: {
-  label: string; value: string; onChange: (v: string) => void;
-  placeholder?: string; type?: string; required?: boolean; multiline?: boolean;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  type?: string;
+  required?: boolean;
+  multiline?: boolean;
 }) {
-  return <label className="block text-sm">
-    <span className="mb-2 block font-medium">{label}</span>
-    {multiline
-      ? <textarea required={required} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={4} className="w-full rounded-2xl border border-white/80 bg-white/65 px-4 py-3 outline-none focus:ring-2 focus:ring-primary/20" />
-      : <input required={required} type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} className="w-full min-w-0 rounded-2xl border border-white/80 bg-white/65 px-4 py-3 outline-none focus:ring-2 focus:ring-primary/20" />}
-  </label>;
+  return (
+    <label className="block text-sm">
+      <span className="mb-2 block font-medium">{label}</span>
+      {multiline ? (
+        <textarea
+          required={required}
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          placeholder={placeholder}
+          rows={4}
+          className="w-full rounded-2xl border border-white/80 bg-white/65 px-4 py-3 outline-none focus:ring-2 focus:ring-primary/20"
+        />
+      ) : (
+        <input
+          required={required}
+          type={type}
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          placeholder={placeholder}
+          className="w-full min-w-0 rounded-2xl border border-white/80 bg-white/65 px-4 py-3 outline-none focus:ring-2 focus:ring-primary/20"
+        />
+      )}
+    </label>
+  );
 }
 
 function PageIntro({ page, extra }: { page: Page; extra?: ReactNode }) {
   const Icon = pageInfo[page].icon;
-  return <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
-    <div><div className="mb-3 flex items-center gap-2 text-primary"><Icon size={16} /><Eyebrow>{page === "Home" ? "Welcome to your universe" : "Your personal space"}</Eyebrow></div>
-      <h1 className="font-display text-4xl font-semibold sm:text-5xl">{page === "Home" ? "A universe of you." : page}</h1>
-      <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">{pageInfo[page].subtitle}</p>
-    </div>{extra}
-  </div>;
+  return (
+    <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <div className="mb-3 flex items-center gap-2 text-primary">
+          <Icon size={16} />
+          <Eyebrow>{page === "Home" ? "Welcome to your universe" : "Your personal space"}</Eyebrow>
+        </div>
+        <h1 className="font-display text-4xl font-semibold sm:text-5xl">
+          {page === "Home" ? "A universe of you." : page}
+        </h1>
+        <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">
+          {pageInfo[page].subtitle}
+        </p>
+      </div>
+      {extra}
+    </div>
+  );
 }
 
-function EmptyState({ icon: Icon, title, text }: { icon: typeof Sparkles; title: string; text: string }) {
-  return <div className="rounded-3xl border border-dashed border-primary/20 bg-white/25 px-5 py-10 text-center">
-    <div className="mx-auto mb-3 grid size-12 place-items-center rounded-2xl bg-secondary text-primary"><Icon size={23} /></div>
-    <p className="font-display text-xl font-semibold">{title}</p><p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-muted-foreground">{text}</p>
-  </div>;
+function EmptyState({ icon: Icon, title, text }: {
+  icon: typeof Sparkles;
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="rounded-3xl border border-dashed border-primary/20 bg-white/25 px-5 py-10 text-center">
+      <div className="mx-auto mb-3 grid size-12 place-items-center rounded-2xl bg-secondary text-primary">
+        <Icon size={23} />
+      </div>
+      <p className="font-display text-xl font-semibold">{title}</p>
+      <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-muted-foreground">{text}</p>
+    </div>
+  );
 }
 
 /* AUTH */
@@ -128,35 +196,75 @@ function AuthScreen() {
   const [message, setMessage] = useState("");
 
   async function submit(e: FormEvent) {
-    e.preventDefault(); setBusy(true); setMessage("");
+    e.preventDefault();
+    setBusy(true);
+    setMessage("");
+
     try {
       if (mode === "login") {
-        const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+        const { error } = await supabase.auth.signInWithPassword({
+          email: email.trim(),
+          password
+        });
         if (error) throw error;
       } else {
-        const { data, error } = await supabase.auth.signUp({ email: email.trim(), password });
+        const { data, error } = await supabase.auth.signUp({
+          email: email.trim(),
+          password
+        });
         if (error) throw error;
-        if (!data.session) setMessage("Check your email to confirm your account, then sign in.");
+        if (!data.session) {
+          setMessage("Check your email to confirm your account, then sign in.");
+        }
       }
-    } catch (err) { setMessage(err instanceof Error ? err.message : "Something went wrong."); }
-    finally { setBusy(false); }
+    } catch (err) {
+      setMessage(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setBusy(false);
+    }
   }
 
-  return <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-10">
-    <CssSky dense /><div className="pointer-events-none absolute inset-0"><Universe3D variant="lock" className="h-full w-full" /></div>
-    <Glass className="relative z-10 w-full max-w-md p-7 sm:p-10">
-      <div className="mb-8 flex flex-col items-center text-center"><Brand /><p className="mt-8 font-display text-3xl font-semibold">Your universe awaits.</p><p className="mt-2 text-sm text-muted-foreground">A little space for everything that makes you, you.</p></div>
-      <div className="mb-6 grid grid-cols-2 rounded-full bg-secondary/70 p-1">
-        {(["login", "signup"] as const).map(m => <button key={m} onClick={() => { setMode(m); setMessage(""); }} className={cx("rounded-full py-2.5 text-sm", mode === m && "bg-white shadow-sm")}>{m === "login" ? "Sign in" : "Create account"}</button>)}
+  return (
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-10">
+      <CssSky dense />
+      <div className="pointer-events-none absolute inset-0">
+        <Universe3D variant="lock" className="h-full w-full" />
       </div>
-      <form onSubmit={submit} className="space-y-4">
-        <Field label="Email address" value={email} onChange={setEmail} type="email" placeholder="you@example.com" required />
-        <Field label="Password" value={password} onChange={setPassword} type="password" placeholder="Your password" required />
-        {message && <p className="rounded-2xl bg-secondary p-3 text-sm">{message}</p>}
-        <Button type="submit" disabled={busy}>{busy ? "Please wait..." : mode === "login" ? "Enter Lunaria" : "Create my universe"}<ArrowUpRight size={16} /></Button>
-      </form>
-    </Glass>
-  </main>;
+      <Glass className="relative z-10 w-full max-w-md p-7 sm:p-10">
+        <div className="mb-8 flex flex-col items-center text-center">
+          <Brand />
+          <p className="mt-8 font-display text-3xl font-semibold">Your universe awaits.</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            A little space for everything that makes you, you.
+          </p>
+        </div>
+
+        <div className="mb-6 grid grid-cols-2 rounded-full bg-secondary/70 p-1">
+          {(["login", "signup"] as const).map(m => (
+            <button
+              key={m}
+              onClick={() => { setMode(m); setMessage(""); }}
+              className={cx("rounded-full py-2.5 text-sm", mode === m && "bg-white shadow-sm")}
+            >
+              {m === "login" ? "Sign in" : "Create account"}
+            </button>
+          ))}
+        </div>
+
+        <form onSubmit={submit} className="space-y-4">
+          <Field label="Email address" value={email} onChange={setEmail}
+            type="email" placeholder="you@example.com" required />
+          <Field label="Password" value={password} onChange={setPassword}
+            type="password" placeholder="Your password" required />
+          {message && <p className="rounded-2xl bg-secondary p-3 text-sm">{message}</p>}
+          <Button type="submit" disabled={busy}>
+            {busy ? "Please wait..." : mode === "login" ? "Enter Lunaria" : "Create my universe"}
+            <ArrowUpRight size={16} />
+          </Button>
+        </form>
+      </Glass>
+    </main>
+  );
 }
 
 function PinScreen() {
@@ -168,88 +276,251 @@ function PinScreen() {
 
   async function unlock() {
     if (pin.length !== 4 || busy) return;
-    setBusy(true); setError("");
+    setBusy(true);
+    setError("");
+
     try {
       if (firstPin) {
-        const salt = newSalt(); const hash = await hashPin(pin, salt);
+        const salt = newSalt();
+        const hash = await hashPin(pin, salt);
         await saveProfile({ pin_hash: hash, pin_salt: salt });
       } else {
         const valid = await verifyPin(pin, profile!.pin_salt!, profile!.pin_hash!);
         if (!valid) throw new Error("Incorrect PIN. Please try again.");
       }
       setUnlocked(true);
-    } catch (err) { setError(err instanceof Error ? err.message : "Unable to unlock."); setPin(""); }
-    finally { setBusy(false); }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to unlock.");
+      setPin("");
+    } finally {
+      setBusy(false);
+    }
   }
 
-  return <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-8">
-    <CssSky dense /><div className="pointer-events-none absolute inset-0"><Universe3D variant="lock" className="h-full w-full" /></div>
-    <Glass className="relative z-10 w-full max-w-[370px] p-7 text-center sm:p-9">
-      <div className="mx-auto mb-5 grid size-16 place-items-center rounded-[22px] bg-universe text-white shadow-float"><LockKeyhole size={27} /></div>
-      <Eyebrow>{firstPin ? "A little privacy" : "Welcome back"}</Eyebrow>
-      <h1 className="mt-2 font-display text-3xl font-semibold">{firstPin ? "Create your PIN" : "Unlock Lunaria"}</h1>
-      <p className="mt-2 text-sm text-muted-foreground">{firstPin ? "Choose a four-digit PIN." : "Enter your four-digit PIN."}</p>
-      <div className="my-7 flex justify-center gap-4">{[0,1,2,3].map(i => <span key={i} className={cx("size-3 rounded-full border border-primary/40", pin.length > i ? "bg-primary" : "bg-white/60")} />)}</div>
-      <div className="mx-auto grid max-w-[250px] grid-cols-3 gap-3">
-        {["1","2","3","4","5","6","7","8","9","clear","0","back"].map(k => <button key={k} onClick={() => { setError(""); if (k === "clear") setPin(""); else if (k === "back") setPin(v => v.slice(0,-1)); else if (pin.length < 4) setPin(v => v + k); }} className="grid aspect-square place-items-center rounded-2xl border border-white/70 bg-white/65 text-lg font-semibold shadow-sm active:scale-95">{k === "clear" ? "Clear" : k === "back" ? "⌫" : k}</button>)}
+  return (
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-8">
+      <CssSky dense />
+      <div className="pointer-events-none absolute inset-0">
+        <Universe3D variant="lock" className="h-full w-full" />
       </div>
-      {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
-      <Button onClick={unlock} disabled={pin.length !== 4 || busy}>{busy ? "Opening..." : firstPin ? "Save PIN & enter" : "Unlock my space"}<ArrowRight size={16} /></Button>
-    </Glass>
-  </main>;
+      <Glass className="relative z-10 w-full max-w-[370px] p-7 text-center sm:p-9">
+        <div className="mx-auto mb-5 grid size-16 place-items-center rounded-[22px] bg-universe text-white shadow-float">
+          <LockKeyhole size={27} />
+        </div>
+        <Eyebrow>{firstPin ? "A little privacy" : "Welcome back"}</Eyebrow>
+        <h1 className="mt-2 font-display text-3xl font-semibold">
+          {firstPin ? "Create your PIN" : "Unlock Lunaria"}
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {firstPin ? "Choose a four-digit PIN." : "Enter your four-digit PIN."}
+        </p>
+        <div className="my-7 flex justify-center gap-4">
+          {[0, 1, 2, 3].map(i => (
+            <span key={i} className={cx(
+              "size-3 rounded-full border border-primary/40",
+              pin.length > i ? "bg-primary" : "bg-white/60"
+            )} />
+          ))}
+        </div>
+        <div className="mx-auto grid max-w-[250px] grid-cols-3 gap-3">
+          {["1","2","3","4","5","6","7","8","9","clear","0","back"].map(k => (
+            <button
+              key={k}
+              onClick={() => {
+                setError("");
+                if (k === "clear") setPin("");
+                else if (k === "back") setPin(v => v.slice(0, -1));
+                else if (pin.length < 4) setPin(v => v + k);
+              }}
+              className="grid aspect-square place-items-center rounded-2xl border border-white/70 bg-white/65 text-lg font-semibold shadow-sm active:scale-95"
+            >
+              {k === "clear" ? "Clear" : k === "back" ? "⌫" : k}
+            </button>
+          ))}
+        </div>
+        {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
+        <Button onClick={unlock} disabled={pin.length !== 4 || busy}>
+          {busy ? "Opening..." : firstPin ? "Save PIN & enter" : "Unlock my space"}
+          <ArrowRight size={16} />
+        </Button>
+      </Glass>
+    </main>
+  );
 }
 
 /* WORKSPACE */
 
 function WorkspacePage() {
-  const { data: tasks = [], isLoading, error } = useRows<Task>("lunaria_tasks", "created_at", false);
+  const { data: tasks = [], isLoading, error } =
+    useRows<Task>("lunaria_tasks", "created_at", false);
   const invalidate = useInvalidate();
+
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [kind, setKind] = useState<"small" | "long">("small");
   const [deadline, setDeadline] = useState("");
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
+
   const active = tasks.filter(t => t.status === "active");
   const completed = tasks.filter(t => t.status === "completed");
 
   async function createTask(e: FormEvent) {
-    e.preventDefault(); if (!title.trim()) return;
-    setBusy(true); setMessage("");
+    e.preventDefault();
+    if (!title.trim()) return;
+
+    setBusy(true);
+    setMessage("");
+
     try {
-      await insertRow("lunaria_tasks", { title: title.trim(), task_type: kind, label: "Personal", assigned_by: "", description: "", deadline: deadline || null, status: "active", progress: 0, completed_at: null });
-      setTitle(""); setDeadline(""); setShowForm(false); await invalidate("lunaria_tasks");
-    } catch (err) { setMessage(err instanceof Error ? err.message : "Could not save task."); }
-    finally { setBusy(false); }
+      await insertRow("lunaria_tasks", {
+        title: title.trim(),
+        task_type: kind,
+        label: "Personal",
+        assigned_by: "",
+        description: "",
+        deadline: deadline || null,
+        status: "active",
+        progress: 0,
+        completed_at: null
+      });
+
+      setTitle("");
+      setDeadline("");
+      setShowForm(false);
+      await invalidate("lunaria_tasks");
+    } catch (err) {
+      setMessage(err instanceof Error ? err.message : "Could not save task.");
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function complete(task: Task) {
-    await updateRow("lunaria_tasks", task.id, { status: "completed", progress: 100, completed_at: new Date().toISOString() });
+    await updateRow("lunaria_tasks", task.id, {
+      status: "completed",
+      progress: 100,
+      completed_at: new Date().toISOString()
+    });
     await invalidate("lunaria_tasks");
   }
 
   async function remove(task: Task) {
     if (!window.confirm(`Delete "${task.title}"?`)) return;
-    await deleteRow("lunaria_tasks", task.id); await invalidate("lunaria_tasks");
+    await deleteRow("lunaria_tasks", task.id);
+    await invalidate("lunaria_tasks");
   }
 
-  return <>
-    <PageIntro page="Workspace" extra={<Button onClick={() => setShowForm(v => !v)}><Plus size={16} /> New task</Button>} />
-    <div className="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-      {[["Active tasks",active.length,Target],["Completed",completed.length,CheckCircle2],["Total tasks",tasks.length,Sparkles],["Completion",tasks.length ? `${Math.round(completed.length/tasks.length*100)}%` : "0%",Star]].map(([label,value,Icon]) => { const I = Icon as typeof Star; return <Glass key={String(label)} className="p-4"><I size={18} className="mb-3 text-primary" /><p className="text-xs text-muted-foreground">{label as string}</p><p className="mt-1 font-display text-3xl font-semibold">{value as string | number}</p></Glass>; })}
-    </div>
-    {showForm && <Glass className="mb-5"><form onSubmit={createTask} className="space-y-4"><h2 className="font-display text-2xl font-semibold">A new little goal</h2><Field label="Task name" value={title} onChange={setTitle} placeholder="What would you like to accomplish?" required /><label className="block text-sm">Task type<select value={kind} onChange={e => setKind(e.target.value as "small" | "long")} className="mt-2 w-full rounded-2xl border bg-white/65 px-4 py-3"><option value="small">Small task</option><option value="long">Long project</option></select></label><Field label="Deadline" value={deadline} onChange={setDeadline} type="date" /><div className="flex gap-2"><Button type="submit" disabled={busy}>Save task</Button><Button variant="soft" onClick={() => setShowForm(false)}>Cancel</Button></div></form></Glass>}
-    {message && <p className="mb-4 text-sm text-destructive">{message}</p>}
-    <Glass><Eyebrow>Your to-do list</Eyebrow><h2 className="mb-5 mt-1 font-display text-2xl font-semibold">Things in progress</h2>
-      {isLoading && <p>Loading tasks...</p>}{error && <p className="text-destructive">{error.message}</p>}
-      {!isLoading && !tasks.length && <EmptyState icon={Target} title="Your workspace is waiting." text="Add your first task and start with one small step." />}
-      <div className="space-y-3">{tasks.map(task => <article key={task.id} className="rounded-2xl border border-white/70 bg-white/45 p-4"><div className="flex justify-between gap-3"><div><h3 className="font-semibold">{task.title}</h3><p className="mt-1 text-xs text-muted-foreground">{task.status} · {task.deadline || "No deadline"}</p></div><button onClick={() => remove(task)}><Trash2 size={16} /></button></div>
-        {task.task_type === "long" && <input aria-label="Task progress" type="range" min="0" max="100" value={task.progress} onChange={async e => { await updateRow("lunaria_tasks", task.id, { progress: Number(e.target.value) }); await invalidate("lunaria_tasks"); }} className="mt-3 w-full" />}
-        {task.status === "active" && <Button onClick={() => complete(task)}><Check size={15} /> Mark complete</Button>}</article>)}</div>
-    </Glass>
-  </>;
-}
+  return (
+    <>
+      <PageIntro page="Workspace" extra={
+        <Button onClick={() => setShowForm(v => !v)}>
+          <Plus size={16} /> New task
+        </Button>
+      } />
 
+      <div className="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {[
+          ["Active tasks", active.length, Target],
+          ["Completed", completed.length, CheckCircle2],
+          ["Total tasks", tasks.length, Sparkles],
+          ["Completion", tasks.length
+            ? `${Math.round(completed.length / tasks.length * 100)}%`
+            : "0%", Star]
+        ].map(([label, value, Icon]) => {
+          const I = Icon as typeof Star;
+          return (
+            <Glass key={String(label)} className="p-4">
+              <I size={18} className="mb-3 text-primary" />
+              <p className="text-xs text-muted-foreground">{label as string}</p>
+              <p className="mt-1 font-display text-3xl font-semibold">
+                {value as string | number}
+              </p>
+            </Glass>
+          );
+        })}
+      </div>
+
+      {showForm && (
+        <Glass className="mb-5">
+          <form onSubmit={createTask} className="space-y-4">
+            <h2 className="font-display text-2xl font-semibold">A new little goal</h2>
+            <Field label="Task name" value={title} onChange={setTitle}
+              placeholder="What would you like to accomplish?" required />
+            <label className="block text-sm">
+              Task type
+              <select
+                value={kind}
+                onChange={e => setKind(e.target.value as "small" | "long")}
+                className="mt-2 w-full rounded-2xl border bg-white/65 px-4 py-3"
+              >
+                <option value="small">Small task</option>
+                <option value="long">Long project</option>
+              </select>
+            </label>
+            <Field label="Deadline" value={deadline} onChange={setDeadline} type="date" />
+            <div className="flex gap-2">
+              <Button type="submit" disabled={busy}>Save task</Button>
+              <Button variant="soft" onClick={() => setShowForm(false)}>Cancel</Button>
+            </div>
+          </form>
+        </Glass>
+      )}
+
+      {message && <p className="mb-4 text-sm text-destructive">{message}</p>}
+
+      <Glass>
+        <Eyebrow>Your to-do list</Eyebrow>
+        <h2 className="mb-5 mt-1 font-display text-2xl font-semibold">Things in progress</h2>
+        {isLoading && <p>Loading tasks...</p>}
+        {error && <p className="text-destructive">{error.message}</p>}
+        {!isLoading && !tasks.length && (
+          <EmptyState icon={Target} title="Your workspace is waiting."
+            text="Add your first task and start with one small step." />
+        )}
+
+        <div className="space-y-3">
+          {tasks.map(task => (
+            <article key={task.id} className="rounded-2xl border border-white/70 bg-white/45 p-4">
+              <div className="flex justify-between gap-3">
+                <div>
+                  <h3 className="font-semibold">{task.title}</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {task.status} · {task.deadline || "No deadline"}
+                  </p>
+                </div>
+                <button onClick={() => remove(task)} aria-label="Delete task">
+                  <Trash2 size={16} />
+                </button>
+              </div>
+              {task.task_type === "long" && (
+                <input
+                  aria-label="Task progress"
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={task.progress}
+                  onChange={async e => {
+                    await updateRow("lunaria_tasks", task.id, {
+                      progress: Number(e.target.value)
+                    });
+                    await invalidate("lunaria_tasks");
+                  }}
+                  className="mt-3 w-full"
+                />
+              )}
+              {task.status === "active" && (
+                <Button onClick={() => complete(task)}>
+                  <Check size={15} /> Mark complete
+                </Button>
+              )}
+            </article>
+          ))}
+        </div>
+      </Glass>
+    </>
+  );
+}
 /* GENERIC RECORD PAGES */
 
 type FieldDef = { key: string; label: string; type?: "text" | "date" | "number" | "textarea"; required?: boolean; placeholder?: string };
@@ -596,3 +867,4 @@ export function LunariaApp() {
 }
 
 export default LunariaApp;
+
